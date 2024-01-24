@@ -13,6 +13,9 @@ const xss = require("xss-clean");
 const rateLimiter = require("express-rate-limit");
 
 // router
+app.get("/", (req, res) => {
+  res.send("Jobs API");
+});
 const auth = require("./routes/auth");
 const jobs = require("./routes/jobs");
 
