@@ -10,6 +10,8 @@ const connectDb = require("./db/connect");
 const auth = require("./routes/auth");
 const jobs = require("./routes/jobs");
 
+const authUser = require("./middleware/authentication");
+
 // error handler
 const notFoundMiddleware = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
@@ -19,7 +21,7 @@ app.use(express.json());
 
 // routes
 app.use("/api/v1/auth", auth);
-app.use("/api/v1/jobs", jobs);
+app.use("/api/v1/jobs", authUser, jobs);
 app.use("/api/v1/jobs/:id", jobs);
 
 app.use(notFoundMiddleware);
@@ -33,6 +35,7 @@ const start = async () => {
     app.listen(port, () =>
       console.log(`Server is listening on port ${port}...`)
     );
+    console.log("Hello");
   } catch (error) {
     console.log(error);
   }
